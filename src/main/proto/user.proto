@@ -1,7 +1,10 @@
 syntax = "proto3";
 
-option java_package = "com.videogametracker.proto";
-option java_outer_classname = "UserProto";
+//option java_package = "com.videogametracker.proto";
+//option java_outer_classname = "UserProto";
+option java_multiple_files = true;
+
+package com.proto;
 
 message UserAuthRequest {
   string user_id = 1;
@@ -12,7 +15,30 @@ message UserAuthResponse {
   string password = 2;
 }
 
+message UserRegisterRequest {
+  string email = 1;
+  string password = 2;
+  string username = 3;
+  string fullname = 4;
+  string description = 5;
+}
+
+message UserRegisterResponse {
+  string userId = 1;
+}
+
+message CheckEmailRequest {
+  string email = 1;
+}
+
+message CheckEmailResponse {
+  bool isExist = 1;
+}
+
+
 service UserService {
   rpc getUserAuth(UserAuthRequest) returns(UserAuthResponse){}
+  rpc registerUser(UserRegisterRequest) returns(UserRegisterResponse){}
+  rpc checkEmailExist(CheckEmailRequest) returns(CheckEmailResponse){}
 }
 
